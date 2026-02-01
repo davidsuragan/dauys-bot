@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+aiogram
+python-dotenv
+requests
+httpx
+soundfile
+motor>=3.3.0
+pymongo[srv]>=4.6.0
+dnspython
+certifi

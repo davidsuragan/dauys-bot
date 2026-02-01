@@ -1,0 +1,24 @@
+from aiogram import BaseMiddleware
+from aiogram.types import TelegramObject
+from typing import Callable, Any, Dict
+
+ALLOWED_CHAT_ID = -1003366161854
+
+class ChatFilterMiddleware(BaseMiddleware):
+    async def __call__(
+        self,
+        handler: Callable[[TelegramObject, Dict[str, Any]], Any],
+        event: TelegramObject,
+        data: Dict[str, Any]
+    ) -> Any:
+        chat = data.get("event_chat")
+
+        # Егер chat табылмаса — бұл private чат (мысалы, /start)
+        if not chat:
+            return await handler(event, data)
+
+        # Тек супертопқа рұқсат, қалған топтар/арналар/боттар блок
+        if chat.type in ("group", "supergroup") and chat.id != ALLOWED_CHAT_ID:
+            return
+
+        return await handler(event, data)

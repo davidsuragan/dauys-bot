@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+SpeechRecognition
+soundfile
+python-multipart
+requests
+python-dotenv
